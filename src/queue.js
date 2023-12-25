@@ -37,7 +37,7 @@ class Queue {
 
   dequeue() {
     if (!this.head) {
-      return null; // or throw an error if you prefer
+      return null;
     }
 
     const dequeuedValue = this.head.value;
