@@ -65,21 +65,63 @@ class BinarySearchTree {
     
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  remove(data) {
+    this.rootNode = this.deleteNode(this.rootNode, data);
+
   }
 
+  deleteNode(node, value){
+    if(node === null){
+      return node
+    }
+    if(value < node.data){
+      node.left = this.deleteNode(node.left, value)
+    }else if(value > node.data){
+      node.right = this.deleteNode(node.right, value)
+    } else{
+      if(!node.left && !node.right){
+        return null
+      }
+      if(!node.left){
+        return node.right;
+      }else if (!node.right){
+        return node.left
+      }
+      node.data = this.findMin(node.right)
+      node.right = this.deleteNode(node.right, node.data)
+    }
+    return node;
+
+  }
+
+
+
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.findMin(this.rootNode);
+  }
+
+  findMin(node){
+    if(!node.left){
+      return node.data;
+    }else{
+      return this.findMin(node.left);
+    }
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.findMax(this.rootNode);
+  }
+
+  findMax(node){
+    if(!node.right){
+      return node.data;
+    }else{
+      return this.findMax(node.right);
+    }
   }
 }
+
+
 
 module.exports = {
   BinarySearchTree
